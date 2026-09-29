@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the_spott3d_frog | Artistic Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #1a2f1a;
+            --forest-green: #2d4f2d;
+            --moss: #5c7a4f;
+            --earth-brown: #4a3728;
+            --soft-tan: #b8a68a;
+            --mist-white: #e8ece6;
+            --shadow-overlay: rgba(0, 0, 0, 0.15);
+            --accent-gold: #c9a962;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-green) 100%);
+            color: var(--mist-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            background: rgba(26, 47, 26, 0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 15px var(--shadow-overlay);
+            border-bottom: 1px solid var(--moss);
+        }
+
+        .logo-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--mist-white);
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--accent-gold);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(45, 79, 45, 0.5);
+        }
+
+        .logo-btn:hover {
+            background: var(--accent-gold);
+            color: var(--forest-dark);
+            box-shadow: 0 0 20px rgba(201, 169, 98, 0.4);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-tab {
+            background: rgba(92, 122, 79, 0.6);
+            color: var(--mist-white);
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid var(--moss);
+        }
+
+        .nav-tab:hover {
+            background: var(--moss);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 122, 79, 0.4);
+        }
+
+        /* Main Layout */
+        .layout-container {
+            display: flex;
+            flex: 1;
+            gap: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: rgba(26, 47, 26, 0.7);
+            padding: 2rem;
+            height: calc(100vh - 80px);
+            position: sticky;
+            top: 80px;
+            overflow-y: auto;
+            border-right: 1px solid var(--moss);
+            backdrop-filter: blur(3px);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-pic-placeholder {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--moss) 0%, var(--forest-green) 100%);
+            border: 3px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            color: var(--mist-white);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic-placeholder:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
+        }
+
+        .bio-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--soft-tan);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--moss);
+        }
+
+        .social-link {
+            color: var(--mist-white);
+            text-decoration: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--moss);
+            background: rgba(45, 79, 45, 0.3);
+        }
+
+        .social-link:hover {
+            background: var(--moss);
+            border-left-color: var(--accent-gold);
+            padding-left: 1.2rem;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: linear-gradient(to bottom, rgba(26, 47, 26, 0.6), rgba(45, 79, 45, 0.4));
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block {
+            background: rgba(74, 55, 40, 0.3);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--moss);
+        }
+
+        .content-block h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--soft-tan);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 0.5rem;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .image-card {
+            background: rgba(45, 79, 45, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--moss);
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(92, 122, 79, 0.4);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-card p {
+            padding: 1rem;
+            color: var(--soft-tan);
+            font-size: 0.9rem;
+        }
+
+        /* Decorative Elements */
+        .pine-accent {
+            text-align: center;
+            margin: 3rem 0;
+            font-size: 2rem;
+            color: var(--moss);
+            letter-spacing: 1rem;
+        }
+
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(45, 79, 45, 0.3);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--moss);
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .layout-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <a href="#main-page" class="logo-btn" id="home-logo">the_spott3d_frog</a>
+        <ul class="nav-tabs">
+            <li><a href="#main-page" class="nav-tab">Main Page</a></li>
+            <li><a href="#photos" class="nav-tab">Photos</a></li>
+            <li><a href="#art" class="nav-tab">Art</a></li>
+            <li><a href="#info" class="nav-tab">Info</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Layout Container -->
+    <div class="layout-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-pic-placeholder" id="profile-pic">
+                    Your Photo
+                </div>
+                <p class="bio-text" id="bio-content">
+                    Replace this with your artist bio. Share your journey, inspiration, 
+                    and creative philosophy in a few heartfelt paragraphs.
+                </p>
+            </div>
+            
+            <div class="social-links" id="social-media">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter / X</a>
+                <a href="#" class="social-link">ArtStation</a>
+                <a href="#" class="social-link">Email</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Main Page Section -->
+            <section id="main-page" class="page-section active">
+                <div class="content-block">
+                    <h2>Welcome to My Portfolio</h2>
+                    <p>Your introduction and featured work goes here.</p>
+                    <div class="pine-accent">🌲 • 🌲 • 🌲</div>
+                </div>
+
+                <!-- Add additional content blocks below -->
+                <!-- COPY THIS BLOCK TO ADD MORE:
+                <div class="content-block">
+                    <h2>Your Block Title</h2>
+                    <p>Your content here...</p>
+                </div>
+                -->
+            </section>
+
+            <!-- Photos Section -->
+            <section id="photos" class="page-section">
+                <div class="content-block">
+                    <h2>Photography Collection</h2>
+                    <p>Natural landscapes and moments captured through the lens.</p>
+                    
+                    <div class="image-grid" id="photo-gallery">
+                        <!-- Add photo cards like this: -->
+                        <!--
+                        <div class="image-card">
+                            <img src="your-image.jpg" alt="Description">
+                            <p>Caption or description</p>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Art Section -->
+            <section id="art" class="page-section">
+                <div class="content-block">
+                    <h2>Artwork Gallery</h2>
+                    <p>Digital art, traditional pieces, and creative explorations.</p>
+                    
+                    <div class="image-grid" id="art-gallery">
+                        <!-- Add artwork cards like this: -->
+                        <!--
+                        <div class="image-card">
+                            <img src="your-artwork.jpg" alt="Description">
+                            <p>Medium, size, year</p>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section id="info" class="page-section">
+                <div class="content-block">
+                    <h2>About Me & Contact</h2>
+                    <p>More detailed information, exhibitions, commissions, etc.</p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Exhibitions & Shows</h2>
+                    <p>List your past and upcoming exhibitions here.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Simple Tab Switching Script -->
+    <script>
+        // Handle tab navigation
+        document.querySelectorAll('.nav-tab, #home-logo').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all sections
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Add active class to target section
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).classList.add('active');
+                
+                // Update URL without reloading
+                window.history.pushState(null, '', this.getAttribute('href'));
+            });
+        });
+
+        // Check hash on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1) || 'main-page';
+            document.querySelector(`#${hash}`).classList.add('active');
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.substring(1) || 'main-page';
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(hash).classList.add('active');
+        });
+    </script>
+</body>
+</html>
